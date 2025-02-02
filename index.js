@@ -17,6 +17,8 @@ const messages = [
   }
 ];
 
+const messageRouter = require("./routes/messageRouter")(messages);
+
 app.use(express.urlencoded({extended: true}));
 
 app.get("/", (req, res) => {
@@ -26,6 +28,8 @@ app.get("/", (req, res) => {
 app.get("/new", (req, res) => {
   res.render("form");
 })
+
+app.use("/message", messageRouter);
 
 app.post("/new", (req, res) => {
   messages.push({text: req.body.userMessage, user: req.body.userName, added: new Date()});
